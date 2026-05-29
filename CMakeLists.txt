@@ -7,9 +7,28 @@ project(
   LANGUAGES CXX)
 
 set(CURRENT_TARGET agloader)
-build_lib_module(${CURRENT_TARGET})
+set(AGLOADER_BUILD_STATIC TRUE)
 
-set_target_properties(${CURRENT_TARGET} PROPERTIES VISIBILITY_INLINES_HIDDEN TRUE)
+if (DEFINED AGLOADER_BUILD_STATIC)
+  message("Building agloader static")
+  add_library(${CURRENT_TARGET} STATIC)
+else()
+  message("Building agloader dynamic")
+  add_library(${CURRENT_TARGET} SHARED)
+endif()
+
+set_target_properties(${CURRENT_TARGET} PROPERTIES
+    CXX_STANDARD 23
+    CXX_STANDARD_REQUIRED ON
+    CXX_EXTENSIONS OFF
+    POSITION_INDEPENDENT_CODE ON)
+
+target_compile_options(${CURRENT_TARGET} PRIVATE
+  $<$<CXX_COMPILER_ID:MSVC>:/Wall>
+  $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:-Wall -Wextra -pedantic -Wno-unknown-pragmas>
+)
+
+set_property(TARGET ${CURRENT_TARGET} PROPERTY COMPILE_WARNING_AS_ERROR ON)
 
 if(MSVC)
   set(driver_file msvc)
@@ -21,10 +40,11 @@ target_sources(${CURRENT_TARGET}
 PUBLIC
   FILE_SET CXX_MODULES
   FILES
-  src/loaded_instance_utils.cppm
-  src/loaded_instance_${driver_file}.cppm
-  src/loaded_instance.cppm
-  src/loader.cppm
+    src/loader.cpp
+  src/agloader.ixx
+    src/loaded_instance_utils.cpp
+    src/loaded_instance_${driver_file}.cpp
+    src/loaded_instance.cpp
 )
 
 target_link_libraries(${CURRENT_TARGET} PRIVATE ${CMAKE_DL_LIBS})

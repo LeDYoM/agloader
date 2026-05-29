@@ -4,7 +4,7 @@ module;
 #include <string>
 #include <memory>
 
-export module agloader;
+export module agloader:main;
 
 import "loader_export.hpp";
 import :linstance;
@@ -108,7 +108,7 @@ export LOADER_API void destroyLoader()
 
 }  // namespace agl
 
-module :private;
+//module :private;
 
 namespace agl
 {
