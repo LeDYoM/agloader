@@ -3,8 +3,7 @@ module;
 #if defined(_MSC_VER) || defined(__BORLANDC__)
 #define WIN32_LEAN_AND_MEAN
 #pragma warning(push)
-#pragma warning(disable : 5039)
-#define WIN32_LEAN_AND_MEAN
+#pragma warning(disable : 5039 4865)
 #include <windows.h>
 #pragma warning(pop)
 
