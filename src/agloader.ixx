@@ -1,3 +1,4 @@
 export module agloader;
 
-export import :main;
+export import :loader;
+export import :mngm;

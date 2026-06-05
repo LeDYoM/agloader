@@ -38,13 +38,23 @@ endif()
 
 target_sources(${CURRENT_TARGET}
 PUBLIC
+  FILE_SET HEADERS
+  FILES
+    src/loader_export.hpp
+)
+
+target_sources(${CURRENT_TARGET}
+PUBLIC
   FILE_SET CXX_MODULES
   FILES
-    src/loader.cpp
-  src/agloader.ixx
-    src/loaded_instance_utils.cpp
+    src/agloader.ixx
     src/loaded_instance_${driver_file}.cpp
+    src/loaded_instance_utils.cpp
     src/loaded_instance.cpp
+    src/loader_impl.cpp
+    src/loader_management_impl.cpp
+    src/loader_management.cpp
+    src/loader.cpp
 )
 
 target_link_libraries(${CURRENT_TARGET} PRIVATE ${CMAKE_DL_LIBS})
