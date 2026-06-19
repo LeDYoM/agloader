@@ -28,6 +28,9 @@ target_compile_options(${CURRENT_TARGET} PRIVATE
   $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:-Wall -Wextra -pedantic -Wno-unknown-pragmas>
 )
 
+target_compile_options(${CURRENT_TARGET} PRIVATE -fsanitize=address)
+target_link_options(${CURRENT_TARGET} PRIVATE -fsanitize=address)
+
 set_property(TARGET ${CURRENT_TARGET} PROPERTY COMPILE_WARNING_AS_ERROR ON)
 
 if(MSVC)
