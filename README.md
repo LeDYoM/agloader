@@ -23,9 +23,12 @@ This will return an instance to the loader class where you can use the loader fu
 Assuming it is not nullptr, you can then load a module:
 
 ```cpp
-    auto* loader{agl::createLoader()};
+    const std::string file_name{"my_file"};
+    using p_initP =
+        bool (*)(Pointer* const);
+
+    auto const method_pointer{
+        loader->loadMethod<p_initP>(file_name.c_str(), "init_p")};
 ```
 
-```cpp
-int main() {}
-```
+If my_file.dll or my_file.so exists, it will try to load it 

@@ -28,9 +28,6 @@ target_compile_options(${CURRENT_TARGET} PRIVATE
   $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:-Wall -Wextra -pedantic -Wno-unknown-pragmas>
 )
 
-target_compile_options(${CURRENT_TARGET} PRIVATE -fsanitize=address)
-target_link_options(${CURRENT_TARGET} PRIVATE -fsanitize=address)
-
 set_property(TARGET ${CURRENT_TARGET} PROPERTY COMPILE_WARNING_AS_ERROR ON)
 
 if(MSVC)
@@ -51,6 +48,7 @@ PUBLIC
   FILE_SET CXX_MODULES
   FILES
     src/agloader.ixx
+    src/loaded_instance_impl.cpp
     src/loaded_instance_${driver_file}.cpp
     src/loaded_instance_utils.cpp
     src/loaded_instance.cpp
