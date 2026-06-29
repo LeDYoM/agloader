@@ -1,0 +1,30 @@
+name: CMake
+
+on:
+  push:
+    branches:
+      [main,develop]
+
+jobs:
+  windows-msvc:
+    runs-on: windows-latest
+
+    strategy:
+      matrix:
+        build_types: [debug, release]
+        preset_name: [win_vs_2026_x64]
+#        preset_name: [win_vs_2022_x64, win_vs_2026_x64]
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Configure CMake for preset ${{matrix.preset_name}}
+      run: cmake --preset ${{matrix.preset_name}}
+
+    - name: Build configuration ${{matrix.preset_name}}_${{matrix.build_types}}
+      # Build your program with the given configuration
+      run: cmake --build --preset ${{matrix.preset_name}}_${{matrix.build_types}}
+
+    - name: Run tests in ${{matrix.preset_name}}_${{matrix.build_types}}
+      working-directory: ${{github.workspace}}/preset_build/${{matrix.preset_name}}
+      run: ctest -C ${{matrix.build_types}}
