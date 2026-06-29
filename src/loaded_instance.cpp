@@ -17,7 +17,7 @@ public:
     void const* loadMethod(const char* methodName);
     bool loaded() const;
     bool unload();
-    void const* loadedData() const { return m_shared_file_handle; }
+    void const* loadedData() const;
 
 private:
     void* m_shared_file_handle{nullptr};
