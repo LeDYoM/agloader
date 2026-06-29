@@ -3,7 +3,7 @@ module;
 #if defined(_MSC_VER) || defined(__BORLANDC__)
 #define WIN32_LEAN_AND_MEAN
 #pragma warning(push)
-#pragma warning(disable : 5039 4710)
+#pragma warning(disable : 5039)
 #if _MSC_VER >= 1950
 #pragma warning(disable : 4865)
 #endif

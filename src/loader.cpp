@@ -2,7 +2,9 @@ module;
 
 #include <map>
 #include <string>
+#pragma warning(disable : 4710)
 #include <memory>
+#pragma warning(pop)
 
 export module agloader:loader;
 
