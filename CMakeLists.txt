@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 4.0)
 project(
   "AGLoader"
-  VERSION 0.3.1.5
+  VERSION 0.3.1.6
   DESCRIPTION "Multiplatform library to load shared libraries system agnostic"
   HOMEPAGE_URL https://github.com/LeDYoM/agloader
   LANGUAGES CXX)
@@ -22,10 +22,6 @@ message("Is agloader imported: ${IS_IMPORTED}")
 if (NOT IS_IMPORTED)
   message("Adding tests for agloader")
   add_subdirectory(tests)
-endif()
-
-if (MSVC)
-    add_compile_options(/external:anglebrackets /external:W0)
 endif()
 
 set_target_properties(agloader agloader_utests PROPERTIES
