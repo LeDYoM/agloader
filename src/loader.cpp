@@ -1,11 +1,8 @@
 module;
 
-#pragma warning(push)
-#pragma warning(disable : 4710)
 #include <map>
 #include <string>
 #include <memory>
-#pragma warning(pop)
 
 export module agloader:loader;
 

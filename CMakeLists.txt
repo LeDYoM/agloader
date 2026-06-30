@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 4.0)
 project(
   "AGLoader"
-  VERSION 0.3.1.4
+  VERSION 0.3.1.5
   DESCRIPTION "Multiplatform library to load shared libraries system agnostic"
   HOMEPAGE_URL https://github.com/LeDYoM/agloader
   LANGUAGES CXX)
@@ -24,11 +24,19 @@ if (NOT IS_IMPORTED)
   add_subdirectory(tests)
 endif()
 
+if (MSVC)
+    add_compile_options(/external:anglebrackets /external:W0)
+endif()
+
 set_target_properties(agloader agloader_utests PROPERTIES
     CXX_STANDARD 23
     CXX_STANDARD_REQUIRED ON
     CXX_EXTENSIONS OFF
     POSITION_INDEPENDENT_CODE ON)
+
+target_compile_options(agloader PRIVATE
+  $<$<CXX_COMPILER_ID:MSVC>:/external:anglebrackets /external:W0>
+)
 
 target_compile_options(agloader PRIVATE
   $<$<CXX_COMPILER_ID:MSVC>:/Wall>
