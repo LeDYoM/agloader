@@ -1,9 +1,7 @@
-module;
-
-#include <map>
-#include <string>
-
 module agloader;
+
+import <map>;
+import <string>;
 
 import :pfunctions;
 import :utils;

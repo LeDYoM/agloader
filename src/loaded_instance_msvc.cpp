@@ -1,10 +1,9 @@
-module;
+export module agloader:pfunctions;
 
 #if defined(_MSC_VER) || defined(__BORLANDC__)
 #define WIN32_LEAN_AND_MEAN
-#include <windows.h>
-
-export module agloader:pfunctions;
+import <windows.h>;
+#undef WIN32_LEAN_AND_MEAN
 
 void* getMethod(void* handle, const char* methodName)
 {

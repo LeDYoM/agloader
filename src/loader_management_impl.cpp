@@ -1,8 +1,7 @@
-module;
-
-#include <memory>
-
 module agloader;
+
+import <memory>;
+
 import :mngm;
 
 import :loader;

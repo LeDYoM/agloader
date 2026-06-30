@@ -1,8 +1,6 @@
-module;
-
-#include <string>
-
 export module agloader:utils;
+
+import <string>;
 
 namespace agl
 {

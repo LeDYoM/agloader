@@ -1,9 +1,7 @@
-module;
-
-#include <string>
-#include <memory>
-
 module agloader;
+
+import <string>;
+import <memory>;
 
 namespace agl
 {

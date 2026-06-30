@@ -1,10 +1,8 @@
-module;
-
-#include <map>
-#include <string>
-#include <memory>
-
 export module agloader:loader;
+
+import <map>;
+import <string>;
+import <memory>;
 
 import "loader_export.hpp";
 import :linstance;

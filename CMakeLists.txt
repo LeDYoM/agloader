@@ -24,22 +24,23 @@ if (NOT IS_IMPORTED)
   add_subdirectory(tests)
 endif()
 
-set_target_properties(agloader agloader_utests PROPERTIES
+set_target_properties(agloader PROPERTIES
     CXX_STANDARD 23
     CXX_STANDARD_REQUIRED ON
     CXX_EXTENSIONS OFF
     POSITION_INDEPENDENT_CODE ON)
 
 target_compile_options(agloader PRIVATE
-  $<$<CXX_COMPILER_ID:MSVC>:/external:anglebrackets /external:W0>
-)
-
-target_compile_options(agloader PRIVATE
-  $<$<CXX_COMPILER_ID:MSVC>:/Wall>
+  $<$<AND:$<CXX_COMPILER_ID:MSVC>,$<NOT:$<CONFIG:Release>>>:/Wall>
+  $<$<AND:$<CXX_COMPILER_ID:MSVC>,$<CONFIG:Release>>:/W4>
   $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:-Wall -Wextra -pedantic -Wno-unknown-pragmas>
 )
 
-set_property(TARGET agloader agloader_utests PROPERTY COMPILE_WARNING_AS_ERROR ON)
+target_compile_options(agloader PRIVATE
+  $<$<CXX_COMPILER_ID:MSVC>:/external:anglebrackets /external:W0>
+)
+
+set_property(TARGET agloader PROPERTY COMPILE_WARNING_AS_ERROR ON)
 
 if(MSVC)
   set(driver_file msvc)

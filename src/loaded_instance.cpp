@@ -1,9 +1,7 @@
-module;
-
-#include <map>
-#include <string>
-
 export module agloader:linstance;
+
+import <map>;
+import <string>;
 
 namespace agl
 {
