@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 4.0)
 project(
   "AGLoader"
-  VERSION 0.3.1.6
+  VERSION 0.3.1.7
   DESCRIPTION "Multiplatform library to load shared libraries system agnostic"
   HOMEPAGE_URL https://github.com/LeDYoM/agloader
   LANGUAGES CXX)
@@ -71,4 +71,4 @@ PUBLIC
 )
 
 target_link_libraries(agloader PRIVATE ${CMAKE_DL_LIBS})
-message(STATUS "agloader ver.  ${CMAKE_PROJECT_VERSION}")
+message(STATUS "agloader ver.  ${PROJECT_VERSION}")
