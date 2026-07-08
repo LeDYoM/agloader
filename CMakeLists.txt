@@ -68,6 +68,7 @@ PUBLIC
     src/loader_management_impl.cpp
     src/loader_management.cpp
     src/loader.cpp
+    src/module.cpp
 )
 
 target_link_libraries(agloader PRIVATE ${CMAKE_DL_LIBS})
