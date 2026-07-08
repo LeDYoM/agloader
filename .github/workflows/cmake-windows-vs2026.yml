@@ -3,7 +3,7 @@ name: CMake
 on:
   push:
     branches:
-      [main,develop]
+      [main]
 
 jobs:
   windows-msvc:
