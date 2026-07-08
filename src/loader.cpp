@@ -6,6 +6,7 @@ import <memory>;
 
 import "loader_export.hpp";
 import :linstance;
+import :imodule;
 
 namespace agl
 {
@@ -57,6 +58,30 @@ public:
                  const char* const methodName)
     {
         return reinterpret_cast<T>(loadMethod(fileName, methodName));
+    }
+
+        /**
+     * @brief Load a method from an already loaded module
+     * @param fileName File name containing the already loaded module.
+     * @param methodName Method to load
+     * @return Pointer to the loaded method.
+     */
+    LOADER_API void const* loadMethod(IModule const* imodule,
+                                      const char* const methodName);
+
+    /**
+     * @brief Load a method from an already loaded module
+     *
+     * @tparam T Type to load
+     * @param fileName File name containing the already loaded module.
+     * @param methodName Method to load
+     * @return Pointer to the loaded method.
+     */
+    template <typename T>
+    T loadMethod(IModule const* imodule,
+                 const char* const methodName)
+    {
+        return reinterpret_cast<T>(loadMethod(imodule, methodName));
     }
 
     /**

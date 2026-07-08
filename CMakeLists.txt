@@ -60,6 +60,7 @@ PUBLIC
   FILE_SET CXX_MODULES
   FILES
     src/agloader.ixx
+    src/imodule.cpp
     src/loaded_instance_impl.cpp
     src/loaded_instance_${driver_file}.cpp
     src/loaded_instance_utils.cpp

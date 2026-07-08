@@ -1,14 +1,19 @@
 export module agloader:module;
 
+import :imodule;
 
-namespace agl
-{
+namespace agl {
 /**
- * @brief Main class to load a module
- * This class provides the basic API to load a module and its methods
+ * @brief Class holding data of a loaded module
  */
-export class Module
-{
+export class Module : public IModule {
+public:
+    explicit Module(const void* module) : m_module{module} {}
+
+    constexpr const void* moduleData() const noexcept { return m_module; }
+
+private:
+    const void *m_module;
 };
 
-}  // namespace agl
+} // namespace agl
