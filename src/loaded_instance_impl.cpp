@@ -3,7 +3,7 @@ module agloader;
 import <map>;
 import <string>;
 
-import :pfunctions;
+import :os_specific_functions;
 import :utils;
 
 namespace agl

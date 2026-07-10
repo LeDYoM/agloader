@@ -1,6 +1,9 @@
 export module agloader:module;
 
+import <memory>;
+
 import :imodule;
+import :linstance;
 
 namespace agl {
 /**
@@ -8,12 +11,16 @@ namespace agl {
  */
 export class Module : public IModule {
 public:
-    explicit Module(const void* module) : m_module{module} {}
+  explicit constexpr Module(
+      std::shared_ptr<LoadedInstance> loadedInstance) noexcept
+      : m_loadedInstance{std::move(loadedInstance)} {}
 
-    constexpr const void* moduleData() const noexcept { return m_module; }
+  constexpr std::shared_ptr<LoadedInstance> loadedInstance() const noexcept {
+    return m_loadedInstance;
+  }
 
 private:
-    const void *m_module;
+  std::shared_ptr<LoadedInstance> m_loadedInstance;
 };
 
 } // namespace agl

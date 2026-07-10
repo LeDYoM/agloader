@@ -20,22 +20,10 @@ void const* Loader::loadModule(const char* const fileName)
     {
         m_loaded_instances[fileName] = loadedInstace;
     }
-    return loadedInstace->loadedData();
+    return loadedInstace.get();
 }
 
 void const* Loader::loadMethod(const char* const fileName,
-                               const char* const methodName)
-{
-    if (auto const iterator{m_loaded_instances.find(fileName)};
-        iterator != m_loaded_instances.end())
-    {
-        auto loadedInstance{(*iterator).second};
-        return loadedInstance->loadMethod(methodName);
-    }
-    return nullptr;
-}
-
-void const* Loader::loadMethod(IModule const *imodule,
                                const char* const methodName)
 {
     if (auto const iterator{m_loaded_instances.find(fileName)};

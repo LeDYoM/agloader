@@ -1,4 +1,4 @@
-export module agloader:pfunctions;
+export module agloader:os_specific_functions;
 
 #if defined(_MSC_VER) || defined(__BORLANDC__)
 #define WIN32_LEAN_AND_MEAN

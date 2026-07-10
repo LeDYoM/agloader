@@ -62,7 +62,6 @@ PUBLIC
     src/agloader.ixx
     src/imodule.cpp
     src/loaded_instance_impl.cpp
-    src/loaded_instance_${driver_file}.cpp
     src/loaded_instance_utils.cpp
     src/loaded_instance.cpp
     src/loader_impl.cpp
@@ -70,6 +69,7 @@ PUBLIC
     src/loader_management.cpp
     src/loader.cpp
     src/module.cpp
+    src/os_specific_${driver_file}.cpp
 )
 
 target_link_libraries(agloader PRIVATE ${CMAKE_DL_LIBS})
