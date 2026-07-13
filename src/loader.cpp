@@ -36,6 +36,13 @@ public:
      */
     LOADER_API void const* loadModule(const char* const fileName);
 
+        /**
+     * @brief Load a shared library module from a file
+     * @param fileName File to load WITHOUT extension
+     * @return Pointer to the loaded module.
+     */
+    LOADER_API IModule const* loadModule2(const char* const fileName);
+
     /**
      * @brief Load a method from an already loaded module
      * @param fileName File name containing the already loaded module.

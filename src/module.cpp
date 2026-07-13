@@ -12,15 +12,15 @@ namespace agl {
 export class Module : public IModule {
 public:
   explicit constexpr Module(
-      std::shared_ptr<LoadedInstance> loadedInstance) noexcept
+      std::weak_ptr<LoadedInstance> loadedInstance) noexcept
       : m_loadedInstance{std::move(loadedInstance)} {}
 
   constexpr std::shared_ptr<LoadedInstance> loadedInstance() const noexcept {
-    return m_loadedInstance;
+    return m_loadedInstance.lock();
   }
 
 private:
-  std::shared_ptr<LoadedInstance> m_loadedInstance;
+  std::weak_ptr<LoadedInstance> m_loadedInstance;
 };
 
 } // namespace agl

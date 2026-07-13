@@ -23,6 +23,18 @@ void const* Loader::loadModule(const char* const fileName)
     return loadedInstace.get();
 }
 
+IModule const* Loader::loadModule2(const char* const fileName)
+{
+    auto loadedInstace{std::make_shared<LoadedInstance>()};
+    loadedInstace->load(fileName);
+
+    if (loadedInstace->loaded())
+    {
+        m_loaded_instances[fileName] = loadedInstace;
+    }
+    return &(static_cast<IModule>(Module{loadedInstace}));
+}
+
 void const* Loader::loadMethod(const char* const fileName,
                                const char* const methodName)
 {
