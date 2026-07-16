@@ -7,6 +7,7 @@ import <memory>;
 import "loader_export.hpp";
 import :linstance;
 import :imodule;
+import :module;
 
 namespace agl
 {
@@ -36,12 +37,12 @@ public:
      */
     LOADER_API void const* loadModule(const char* const fileName);
 
-        /**
+    /**
      * @brief Load a shared library module from a file
      * @param fileName File to load WITHOUT extension
      * @return Pointer to the loaded module.
      */
-    LOADER_API IModule const* loadModule2(const char* const fileName);
+    LOADER_API IModule const& loadModule2(const char* const fileName);
 
     /**
      * @brief Load a method from an already loaded module
@@ -61,13 +62,12 @@ public:
      * @return Pointer to the loaded method.
      */
     template <typename T>
-    T loadMethod(const char* const fileName,
-                 const char* const methodName)
+    T loadMethod(const char* const fileName, const char* const methodName)
     {
         return reinterpret_cast<T>(loadMethod(fileName, methodName));
     }
 
-        /**
+    /**
      * @brief Load a method from an already loaded module
      * @param fileName File name containing the already loaded module.
      * @param methodName Method to load
@@ -85,8 +85,7 @@ public:
      * @return Pointer to the loaded method.
      */
     template <typename T>
-    T loadMethod(IModule const* imodule,
-                 const char* const methodName)
+    T loadMethod(IModule const* imodule, const char* const methodName)
     {
         return reinterpret_cast<T>(loadMethod(imodule, methodName));
     }
@@ -99,7 +98,7 @@ public:
     LOADER_API bool unloadModule(const char* const fileName);
 
 private:
-    std::map<std::string, std::shared_ptr<LoadedInstance>> m_loaded_instances;
+    std::map<std::string, Module> m_loaded_instances;
 };
 
 }  // namespace agl

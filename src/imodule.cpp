@@ -8,8 +8,8 @@ namespace agl
  */
 export class IModule
 {
-public:
-    virtual ~IModule() {}
+//public:
+//    virtual ~IModule() = default;
 };
 
 }  // namespace agl

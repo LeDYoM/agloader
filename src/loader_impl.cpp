@@ -18,21 +18,21 @@ void const* Loader::loadModule(const char* const fileName)
 
     if (loadedInstace->loaded())
     {
-        m_loaded_instances[fileName] = loadedInstace;
+        m_loaded_instances[fileName] = Module{loadedInstace};
     }
     return loadedInstace.get();
 }
 
-IModule const* Loader::loadModule2(const char* const fileName)
+IModule const& Loader::loadModule2(const char* const fileName)
 {
     auto loadedInstace{std::make_shared<LoadedInstance>()};
     loadedInstace->load(fileName);
 
     if (loadedInstace->loaded())
     {
-        m_loaded_instances[fileName] = loadedInstace;
+        m_loaded_instances[fileName] = Module{loadedInstace};
     }
-    return &(static_cast<IModule>(Module{loadedInstace}));
+    return Module{loadedInstace};
 }
 
 void const* Loader::loadMethod(const char* const fileName,
@@ -42,7 +42,7 @@ void const* Loader::loadMethod(const char* const fileName,
         iterator != m_loaded_instances.end())
     {
         auto loadedInstance{(*iterator).second};
-        return loadedInstance->loadMethod(methodName);
+        return loadedInstance.loadedInstance()->loadMethod(methodName);
     }
     return nullptr;
 }

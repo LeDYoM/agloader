@@ -1,6 +1,6 @@
 import agloader;
 
-int main(int , char *[])
+int main(int, char*[])
 {
     auto* loader{agl::createLoader()};
     (void)(loader);

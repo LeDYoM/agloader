@@ -6,29 +6,36 @@ import :mngm;
 
 import :loader;
 
-namespace agl {
-namespace {
+namespace agl
+{
+namespace
+{
 static constinit std::unique_ptr<Loader> loaderInstance;
 static constinit uintmax_t reference_counter{0U};
-} // namespace
+}  // namespace
 
-Loader *createLoader() {
-  ++reference_counter;
-  if (loaderInstance == nullptr) {
-    loaderInstance = std::make_unique<Loader>();
-  }
+Loader* createLoader()
+{
+    ++reference_counter;
+    if (loaderInstance == nullptr)
+    {
+        loaderInstance = std::make_unique<Loader>();
+    }
 
-  return loaderInstance.get();
+    return loaderInstance.get();
 }
 
-void destroyLoader() {
-  if (reference_counter > 0U) {
-    --reference_counter;
-  }
+void destroyLoader()
+{
+    if (reference_counter > 0U)
+    {
+        --reference_counter;
+    }
 
-  if (reference_counter == 0U) {
-    loaderInstance.reset(nullptr);
-  }
+    if (reference_counter == 0U)
+    {
+        loaderInstance.reset(nullptr);
+    }
 }
 
-} // namespace agl
+}  // namespace agl
