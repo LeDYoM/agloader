@@ -13,8 +13,10 @@ namespace agl
 export class Module : public IModule
 {
 public:
+    Module() noexcept = default;
+
     explicit constexpr Module(
-        std::weak_ptr<LoadedInstance> loadedInstance) noexcept :
+        std::shared_ptr<LoadedInstance> loadedInstance) noexcept :
         m_loadedInstance{std::move(loadedInstance)}
     {}
 

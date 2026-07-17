@@ -27,12 +27,13 @@ IModule const& Loader::loadModule2(const char* const fileName)
 {
     auto loadedInstace{std::make_shared<LoadedInstance>()};
     loadedInstace->load(fileName);
+    Module m{loadedInstace};
 
     if (loadedInstace->loaded())
     {
-        m_loaded_instances[fileName] = Module{loadedInstace};
+        m_loaded_instances[fileName] = m;
     }
-    return Module{loadedInstace};
+    return m;
 }
 
 void const* Loader::loadMethod(const char* const fileName,
