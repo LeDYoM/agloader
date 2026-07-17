@@ -68,4 +68,7 @@ vcpkg_installed/
 Testing/
 .cache/
 
+# Visual studio
+.vs/
+
 preset_build/
