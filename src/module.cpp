@@ -20,15 +20,14 @@ public:
         m_loadedInstance{std::move(loadedInstance)}
     {}
 
-    constexpr std::shared_ptr<LoadedInstance> loadedInstance() noexcept
+    constexpr LoadedInstance* operator->() noexcept
     {
-        return m_loadedInstance;
+        return m_loadedInstance.get();
     }
 
-    constexpr std::shared_ptr<LoadedInstance const> loadedInstance()
-        const noexcept
+    constexpr LoadedInstance const* operator->() const noexcept
     {
-        return m_loadedInstance;
+        return m_loadedInstance.get();
     }
 
 private:
