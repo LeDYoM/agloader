@@ -2,14 +2,11 @@
 #define LOADER_TEST_LIB_EXPORT_INCLUDE_HPP
 
 #ifdef _WIN32
-#define LOADER_API __declspec(dllexport)
-#define LOADER_PRIVATE
+    #define LOADER_TEST_API __declspec(dllexport)
+    #define LOADER_TEST_PRIVATE
 #else
-#define LOADER_API __attribute__((visibility("default")))
-#define LOADER_PRIVATE __attribute__((visibility("hidden")))
+    #define LOADER_TEST_API __attribute__((visibility("default")))
+    #define LOADER_TEST_PRIVATE __attribute__((visibility("hidden")))
 #endif
-#else
-#define LOADER_API
-#define LOADER_PRIVATE
 
 #endif

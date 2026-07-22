@@ -14,9 +14,7 @@ Loader::~Loader() = default;
 void const* Loader::loadModule(const char* const fileName)
 {
     auto loadedInstace{std::make_shared<LoadedInstance>()};
-    loadedInstace->load(fileName);
-
-    if (loadedInstace->loaded())
+    if (loadedInstace->load(fileName))
     {
         m_loaded_instances[fileName] = Module{loadedInstace};
     }
