@@ -53,6 +53,9 @@ public:
     LOADER_API void const* loadMethod(const char* const fileName,
                                       const char* const methodName);
 
+    LOADER_API void const* loadMethod2(IModule const& mod,
+                                       const char* const methodName);
+
     /**
      * @brief Load a method from an already loaded module
      *

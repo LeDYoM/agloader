@@ -49,6 +49,11 @@ void const* Loader::loadMethod(const char* const fileName,
     return nullptr;
 }
 
+void const* Loader::loadMethod2(IModule const& mod, const char* const methodName)
+{
+    
+}
+
 bool Loader::unloadModule(const char* const fileName)
 {
     if (auto const iterator{m_loaded_instances.find(fileName)};
