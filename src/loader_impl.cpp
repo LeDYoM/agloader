@@ -7,6 +7,12 @@ import :module;
 
 namespace agl
 {
+Module& fromIModule(IModule const& mod)
+{
+    // Do not do that.
+    return const_cast<Module&>(static_cast<Module const&>(mod));
+}
+
 Loader::Loader() = default;
 
 Loader::~Loader() = default;
@@ -49,9 +55,14 @@ void const* Loader::loadMethod(const char* const fileName,
     return nullptr;
 }
 
-void const* Loader::loadMethod2(IModule const& mod, const char* const methodName)
+void const* Loader::loadMethod2(IModule const& mod,
+                                const char* const methodName)
 {
-    
+    if (auto& real_module{fromIModule(mod)}; real_module->loaded())
+    {
+        return real_module->loadMethod(methodName);
+    }
+    return nullptr;
 }
 
 bool Loader::unloadModule(const char* const fileName)
