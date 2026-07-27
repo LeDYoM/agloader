@@ -7,10 +7,10 @@ import :module;
 
 namespace agl
 {
-Module& fromIModule(IModule const& mod)
+Module& fromIModule(IModule& mod)
 {
     // Do not do that.
-    return const_cast<Module&>(static_cast<Module const&>(mod));
+    return static_cast<Module&>(mod);
 }
 
 Loader::Loader() = default;
@@ -27,7 +27,7 @@ void const* Loader::loadModule(const char* const fileName)
     return loadedInstace.get();
 }
 
-IModule const& Loader::loadModule2(const char* const fileName)
+IModule& Loader::loadModule2(const char* const fileName)
 {
     auto const [it, result]{m_loaded_instances.insert({fileName, {}})};
     if (result)
@@ -55,8 +55,7 @@ void const* Loader::loadMethod(const char* const fileName,
     return nullptr;
 }
 
-void const* Loader::loadMethod2(IModule const& mod,
-                                const char* const methodName)
+void const* Loader::loadMethod2(IModule& mod, const char* const methodName)
 {
     if (auto& real_module{fromIModule(mod)}; real_module->loaded())
     {

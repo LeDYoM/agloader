@@ -38,8 +38,7 @@ void test1()
     auto* loader{agl::createLoader()};
     assert(loader);
 
-    agl::IModule const& mod{loader->loadModule2("agloader_test_lib")};
-    (void)(mod);
+    agl::IModule& mod{loader->loadModule2("agloader_test_lib")};
 
     {
         auto result_fun{
@@ -51,15 +50,11 @@ void test1()
     }
 
     {
-        /*
-                auto
-           result_fun{loader->loadMethod<getNumber1_t>("agloader_test_lib",
-                                                                 "getNumber1")};
-                assert(result_fun);
+        auto result_fun{loader->loadMethod2<getNumber1_t>(mod, "getNumber1")};
+        assert(result_fun);
 
-                int32_t const result{result_fun(100)};
-                assert(result == 101);
-                */
+        int32_t const result{result_fun(100)};
+        assert(result == 101);
     }
 
     agl::destroyLoader();

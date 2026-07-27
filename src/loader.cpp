@@ -42,7 +42,7 @@ public:
      * @param fileName File to load WITHOUT extension
      * @return Pointer to the loaded module.
      */
-    LOADER_API IModule const& loadModule2(const char* const fileName);
+    LOADER_API IModule& loadModule2(const char* const fileName);
 
     /**
      * @brief Load a method from an already loaded module
@@ -53,7 +53,7 @@ public:
     LOADER_API void const* loadMethod(const char* const fileName,
                                       const char* const methodName);
 
-    LOADER_API void const* loadMethod2(IModule const& mod,
+    LOADER_API void const* loadMethod2(IModule& mod,
                                        const char* const methodName);
 
     /**
@@ -68,6 +68,12 @@ public:
     T loadMethod(const char* const fileName, const char* const methodName)
     {
         return reinterpret_cast<T>(loadMethod(fileName, methodName));
+    }
+
+    template <typename T>
+    T loadMethod2(IModule& mod, const char* const methodName)
+    {
+        return reinterpret_cast<T>(loadMethod2(mod, methodName));
     }
 
     /**
