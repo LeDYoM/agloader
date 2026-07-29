@@ -33,47 +33,32 @@ public:
     /**
      * @brief Load a shared library module from a file
      * @param fileName File to load WITHOUT extension
-     * @return Pointer to the loaded module.
+     * @return Reference to a reference to an opaque @b IModule object
      */
-    LOADER_API void const* loadModule(const char* const fileName);
-
-    /**
-     * @brief Load a shared library module from a file
-     * @param fileName File to load WITHOUT extension
-     * @return Pointer to the loaded module.
-     */
-    LOADER_API IModule& loadModule2(const char* const fileName);
+    LOADER_API IModule& loadModule(const char* const fileName);
 
     /**
      * @brief Load a method from an already loaded module
-     * @param fileName File name containing the already loaded module.
+     * @param mod Reference to a @b IModule object that is a result from a call
+     * to @b loadModule
      * @param methodName Method to load
-     * @return Pointer to the loaded method.
+     * @return Pointer to the loaded method
      */
-    LOADER_API void const* loadMethod(const char* const fileName,
+    LOADER_API void const* loadMethod(IModule& mod,
                                       const char* const methodName);
 
-    LOADER_API void const* loadMethod2(IModule& mod,
-                                       const char* const methodName);
-
     /**
      * @brief Load a method from an already loaded module
-     *
      * @tparam T Type to load
-     * @param fileName File name containing the already loaded module.
+     * @param mod Reference to a @b IModule object that is a result from a call
+     * to @b loadModule
      * @param methodName Method to load
      * @return Pointer to the loaded method.
      */
     template <typename T>
-    T loadMethod(const char* const fileName, const char* const methodName)
+    T loadMethod(IModule& mod, const char* const methodName)
     {
-        return reinterpret_cast<T>(loadMethod(fileName, methodName));
-    }
-
-    template <typename T>
-    T loadMethod2(IModule& mod, const char* const methodName)
-    {
-        return reinterpret_cast<T>(loadMethod2(mod, methodName));
+        return static_cast<T>(loadMethod(mod, methodName));
     }
 
     /**

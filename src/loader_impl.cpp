@@ -17,17 +17,7 @@ Loader::Loader() = default;
 
 Loader::~Loader() = default;
 
-void const* Loader::loadModule(const char* const fileName)
-{
-    auto loadedInstace{std::make_shared<LoadedInstance>()};
-    if (loadedInstace->load(fileName))
-    {
-        m_loaded_instances[fileName] = Module{loadedInstace};
-    }
-    return loadedInstace.get();
-}
-
-IModule& Loader::loadModule2(const char* const fileName)
+IModule& Loader::loadModule(const char* const fileName)
 {
     auto const [it, result]{m_loaded_instances.insert({fileName, {}})};
     if (result)
@@ -43,19 +33,7 @@ IModule& Loader::loadModule2(const char* const fileName)
     return it->second;
 }
 
-void const* Loader::loadMethod(const char* const fileName,
-                               const char* const methodName)
-{
-    if (auto const iterator{m_loaded_instances.find(fileName)};
-        iterator != m_loaded_instances.end())
-    {
-        auto loadedInstance{(*iterator).second};
-        return loadedInstance->loadMethod(methodName);
-    }
-    return nullptr;
-}
-
-void const* Loader::loadMethod2(IModule& mod, const char* const methodName)
+void const* Loader::loadMethod(IModule& mod, const char* const methodName)
 {
     if (auto& real_module{fromIModule(mod)}; real_module->loaded())
     {

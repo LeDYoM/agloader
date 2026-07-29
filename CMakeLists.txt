@@ -6,7 +6,7 @@ project(
   HOMEPAGE_URL https://github.com/LeDYoM/agloader
   LANGUAGES CXX)
 
-set(AGLOADER_BUILD_STATIC TRUE)
+#set(AGLOADER_BUILD_STATIC TRUE)
 
 if (DEFINED AGLOADER_BUILD_STATIC)
   message("Building agloader static")
@@ -14,6 +14,7 @@ if (DEFINED AGLOADER_BUILD_STATIC)
 else()
   message("Building agloader dynamic")
   add_library(agloader SHARED)
+  target_compile_definitions(agloader PUBLIC COMPILE_DYNAMIC)
 endif()
 
 get_target_property(IS_IMPORTED agloader IMPORTED)
@@ -36,6 +37,7 @@ target_compile_options(agloader PRIVATE
   $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:-Wall -Wextra -pedantic -Wno-unknown-pragmas>
 )
 
+# Avoid warnings from external includes (like STL, for example)
 target_compile_options(agloader PRIVATE
   $<$<CXX_COMPILER_ID:MSVC>:/external:anglebrackets /external:W0>
 )

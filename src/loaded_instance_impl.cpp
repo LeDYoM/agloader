@@ -9,7 +9,11 @@ import :utils;
 namespace agl
 {
 LoadedInstance::LoadedInstance()  = default;
-LoadedInstance::~LoadedInstance() = default;
+
+LoadedInstance::~LoadedInstance()
+{
+    unload();
+}
 
 bool LoadedInstance::load(const char* fileName)
 {
