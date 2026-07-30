@@ -62,6 +62,7 @@ public:
     }
 
     /**
+     * @overload
      * @brief Load a method from an already loaded module
      * @param fileName File name containing the already loaded module.
      * @param methodName Method to load
@@ -71,6 +72,7 @@ public:
                                       const char* const methodName);
 
     /**
+     * @overload
      * @brief Load a method from an already loaded module
      *
      * @tparam T Type to load
