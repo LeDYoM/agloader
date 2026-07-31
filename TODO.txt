@@ -1,0 +1,4 @@
+The unit test is not having access to agloader.dll
+Create unloadModule taking an actual IModule
+Create getters to things?
+Documentation
