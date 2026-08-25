@@ -6,9 +6,8 @@ using getNumber1_t = int32_t (*)(int16_t const);
 
 void test1()
 {
-    assert(false);
     auto* loader{agl::createLoader()};
-    assert(!loader);
+    assert(loader);
 
     agl::IModule& mod{loader->loadModule("agloader_test_lib")};
 
@@ -27,6 +26,11 @@ void test1()
 
         int32_t const result{result_fun(100)};
         assert(result == 101);
+    }
+
+    {
+        auto result_fun{loader->loadMethod<getNumber1_t>(mod, "getNumber")};
+        assert(!result_fun);
     }
 
     agl::destroyLoader();

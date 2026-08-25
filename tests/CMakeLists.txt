@@ -5,11 +5,11 @@ add_executable(agloader_utests)
 add_library(agloader_test_lib SHARED)
 
 target_sources(agloader_utests PRIVATE
-    main.cpp)
+    src/main.cpp)
 
 target_sources(agloader_test_lib PRIVATE
-    main_test_lib_export.hpp
-    main_test_lib.cpp)
+    lib/main_test_lib_export.hpp
+    lib/main_test_lib.cpp)
 
 target_compile_options(agloader_utests PRIVATE
   $<$<CXX_COMPILER_ID:MSVC>:/Wall>
@@ -34,3 +34,8 @@ set_target_properties(agloader_utests agloader_test_lib PROPERTIES CXX_STANDARD 
 
 target_link_libraries(agloader_utests PRIVATE agloader)
 add_test(NAME agloader_utests COMMAND agloader_utests)
+
+add_custom_command(TARGET agloader_utests POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+        $<TARGET_FILE:agloader>
+        $<TARGET_FILE_DIR:agloader_utests>)

@@ -33,15 +33,6 @@ IModule& Loader::loadModule(const char* const fileName)
     return it->second;
 }
 
-void const* Loader::loadMethod(IModule& mod, const char* const methodName)
-{
-    if (auto& real_module{fromIModule(mod)}; real_module->loaded())
-    {
-        return real_module->loadMethod(methodName);
-    }
-    return nullptr;
-}
-
 bool Loader::unloadModule(const char* const fileName)
 {
     if (auto const iterator{m_loaded_instances.find(fileName)};
@@ -52,6 +43,15 @@ bool Loader::unloadModule(const char* const fileName)
     }
 
     return false;
+}
+
+void const* Loader::loadMethod(IModule& mod, const char* const methodName)
+{
+    if (auto& real_module{fromIModule(mod)}; real_module->loaded())
+    {
+        return real_module->loadMethod(methodName);
+    }
+    return nullptr;
 }
 
 }  // namespace agl

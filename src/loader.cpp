@@ -38,6 +38,13 @@ public:
     LOADER_API IModule& loadModule(const char* const fileName);
 
     /**
+     * @brief Unload a module from a shared library.
+     * @param fileName File containing the already loaded module
+     * @return If the unloading was successful or not
+     */
+    LOADER_API bool unloadModule(const char* const fileName);
+
+    /**
      * @brief Load a method from an already loaded module
      * @param mod Reference to a @b IModule object that is a result from a call
      * to @b loadModule
@@ -85,13 +92,6 @@ public:
     {
         return reinterpret_cast<T>(loadMethod(imodule, methodName));
     }
-
-    /**
-     * @brief Unload a module from a shared library.
-     * @param fileName File containing the already loaded module
-     * @return If the unloading was successful or not
-     */
-    LOADER_API bool unloadModule(const char* const fileName);
 
 private:
     std::map<std::string, Module> m_loaded_instances;
