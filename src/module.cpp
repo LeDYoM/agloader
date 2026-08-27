@@ -30,6 +30,11 @@ public:
         return m_loadedInstance.get();
     }
 
+    constexpr bool operator==(Module const& rhs) const
+    {
+        return m_loadedInstance.get() == rhs.m_loadedInstance.get();
+    }
+
 private:
     std::shared_ptr<LoadedInstance> m_loadedInstance;
 };

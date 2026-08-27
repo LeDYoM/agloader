@@ -42,7 +42,7 @@ public:
      * @param fileName File containing the already loaded module
      * @return If the unloading was successful or not
      */
-    LOADER_API bool unloadModule(const char* const fileName);
+    LOADER_API bool unloadModule(IModule&& mod);
 
     /**
      * @brief Load a method from an already loaded module
@@ -94,7 +94,7 @@ public:
     }
 
 private:
-    std::map<std::string, Module> m_loaded_instances;
+    std::map<std::string, Module> m_loadedInstances;
 };
 
 }  // namespace agl

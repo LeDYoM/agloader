@@ -15,11 +15,18 @@ Module& fromIModule(IModule& mod)
 
 Loader::Loader() = default;
 
-Loader::~Loader() = default;
+Loader::~Loader()
+{
+    for (auto& element : m_loadedInstances)
+    {
+        element.second->unload();
+    }
+    m_loadedInstances.clear();
+}
 
 IModule& Loader::loadModule(const char* const fileName)
 {
-    auto const [it, result]{m_loaded_instances.insert({fileName, {}})};
+    auto const [it, result]{m_loadedInstances.insert({fileName, {}})};
     if (result)
     {
         it->second = Module{std::make_shared<LoadedInstance>()};
@@ -33,15 +40,24 @@ IModule& Loader::loadModule(const char* const fileName)
     return it->second;
 }
 
-bool Loader::unloadModule(const char* const fileName)
+bool Loader::unloadModule(IModule&& mod)
 {
-    if (auto const iterator{m_loaded_instances.find(fileName)};
-        iterator != m_loaded_instances.end())
+    std::string const* key_element{nullptr};
+
+    for (auto& element : m_loadedInstances)
     {
-        m_loaded_instances.erase(iterator);
-        return true;
+        if (&(element.second) == &mod)
+        {
+            element.second->unload();
+            key_element = &element.first;
+        }
     }
 
+    if (key_element != nullptr)
+    {
+        m_loadedInstances.erase(*key_element);
+        return true;
+    }
     return false;
 }
 
