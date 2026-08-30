@@ -21,7 +21,7 @@ bool freeSharedObject(void* handle)
     return (dlclose(handle) == 0);
 }
 
-const char* const extension = ".so";
-const char* const prefix    = "./lib";
+constexpr char const extension[] = ".so";
+constexpr char const prefix[]    = "./lib";
 
 #endif

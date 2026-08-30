@@ -11,8 +11,8 @@ public:
     LoadedInstance();
     ~LoadedInstance();
 
-    bool load(const char* fileName);
-    void const* loadMethod(const char* methodName);
+    bool load(char const* const fileName);
+    void const* loadMethod(char const* const methodName);
     bool loaded() const;
     bool unload();
     void const* loadedData() const;

@@ -2,10 +2,6 @@ module agloader;
 
 import <memory>;
 
-import :mngm;
-
-import :loader;
-
 namespace agl
 {
 namespace

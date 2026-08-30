@@ -5,13 +5,13 @@ export module agloader:os_specific_functions;
 import <windows.h>;
 #undef WIN32_LEAN_AND_MEAN
 
-void* getMethod(void* handle, const char* methodName)
+void* getMethod(void* handle, char const* methodName)
 {
     return static_cast<void*>(
         GetProcAddress(static_cast<HMODULE>(handle), methodName));
 }
 
-void* loadSharedObject(const char* fileName)
+void* loadSharedObject(char const* fileName)
 {
     return static_cast<void*>(LoadLibrary(fileName));
 }

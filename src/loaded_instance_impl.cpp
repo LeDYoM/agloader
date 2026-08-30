@@ -15,14 +15,14 @@ LoadedInstance::~LoadedInstance()
     unload();
 }
 
-bool LoadedInstance::load(const char* fileName)
+bool LoadedInstance::load(char const* const fileName)
 {
     m_shared_file_handle =
         loadSharedObject(formatFileName(fileName, extension, prefix).c_str());
     return loaded();
 }
 
-void const* LoadedInstance::loadMethod(const char* methodName)
+void const* LoadedInstance::loadMethod(char const* const methodName)
 {
     if (loaded())
     {

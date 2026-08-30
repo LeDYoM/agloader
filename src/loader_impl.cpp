@@ -24,7 +24,7 @@ Loader::~Loader()
     m_loadedInstances.clear();
 }
 
-IModule& Loader::loadModule(const char* const fileName)
+IModule& Loader::loadModule(char const* const fileName)
 {
     auto const [it, result]{m_loadedInstances.insert({fileName, {}})};
     if (result)
@@ -61,7 +61,7 @@ bool Loader::unloadModule(IModule&& mod)
     return false;
 }
 
-void const* Loader::loadMethod(IModule& mod, const char* const methodName)
+void const* Loader::loadMethod(IModule& mod, char const* const methodName)
 {
     if (auto& real_module{fromIModule(mod)}; real_module->loaded())
     {

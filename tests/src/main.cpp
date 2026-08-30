@@ -28,6 +28,15 @@ void test1()
         assert(result == 101);
     }
 
+        {
+        auto result_fun{
+            static_cast<getNumber1_t>(loader->loadMethod(mod, "getNumber1"))};
+        assert(result_fun);
+
+        int32_t const result{result_fun(10)};
+        assert(result == 11);
+    }
+
     {
         auto result_fun{loader->loadMethod<getNumber1_t>(mod, "getNumber")};
         assert(!result_fun);

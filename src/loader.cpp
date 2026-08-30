@@ -35,7 +35,7 @@ public:
      * @param fileName File to load WITHOUT extension
      * @return Reference to a reference to an opaque @b IModule object
      */
-    LOADER_API IModule& loadModule(const char* const fileName);
+    LOADER_API IModule& loadModule(char const* const fileName);
 
     /**
      * @brief Unload a module from a shared library.
@@ -52,7 +52,7 @@ public:
      * @return Pointer to the loaded method
      */
     LOADER_API void const* loadMethod(IModule& mod,
-                                      const char* const methodName);
+                                      char const* const methodName);
 
     /**
      * @brief Load a method from an already loaded module
@@ -63,7 +63,7 @@ public:
      * @return Pointer to the loaded method.
      */
     template <typename T>
-    T loadMethod(IModule& mod, const char* const methodName)
+    T loadMethod(IModule& mod, char const* const methodName)
     {
         return static_cast<T>(loadMethod(mod, methodName));
     }
@@ -76,7 +76,7 @@ public:
      * @return Pointer to the loaded method.
      */
     LOADER_API void const* loadMethod(IModule const* imodule,
-                                      const char* const methodName);
+                                      char const* const methodName);
 
     /**
      * @overload
@@ -88,7 +88,7 @@ public:
      * @return Pointer to the loaded method.
      */
     template <typename T>
-    T loadMethod(IModule const* imodule, const char* const methodName)
+    T loadMethod(IModule const* imodule, char const* const methodName)
     {
         return reinterpret_cast<T>(loadMethod(imodule, methodName));
     }

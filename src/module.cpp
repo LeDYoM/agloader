@@ -20,6 +20,9 @@ public:
         m_loadedInstance{std::move(loadedInstance)}
     {}
 
+    Module(Module const&)            = default;
+    Module& operator=(Module const&) = default;
+
     constexpr LoadedInstance* operator->() noexcept
     {
         return m_loadedInstance.get();
@@ -33,6 +36,11 @@ public:
     constexpr bool operator==(Module const& rhs) const
     {
         return m_loadedInstance.get() == rhs.m_loadedInstance.get();
+    }
+
+    void const* loadMethod(char const* const methodName) override
+    {
+        return m_loadedInstance->loadMethod(methodName);
     }
 
 private:
