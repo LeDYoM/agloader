@@ -35,63 +35,14 @@ public:
      * @param fileName File to load WITHOUT extension
      * @return Reference to a reference to an opaque @b IModule object
      */
-    LOADER_API IModule& loadModule(char const* const fileName);
+    LOADER_API IModule* loadModule(char const* const fileName);
 
     /**
      * @brief Unload a module from a shared library.
      * @param fileName File containing the already loaded module
      * @return If the unloading was successful or not
      */
-    LOADER_API bool unloadModule(IModule&& mod);
-
-    /**
-     * @brief Load a method from an already loaded module
-     * @param mod Reference to a @b IModule object that is a result from a call
-     * to @b loadModule
-     * @param methodName Method to load
-     * @return Pointer to the loaded method
-     */
-    LOADER_API void const* loadMethod(IModule& mod,
-                                      char const* const methodName);
-
-    /**
-     * @brief Load a method from an already loaded module
-     * @tparam T Type to load
-     * @param mod Reference to a @b IModule object that is a result from a call
-     * to @b loadModule
-     * @param methodName Method to load
-     * @return Pointer to the loaded method.
-     */
-    template <typename T>
-    T loadMethod(IModule& mod, char const* const methodName)
-    {
-        return static_cast<T>(loadMethod(mod, methodName));
-    }
-
-    /**
-     * @overload
-     * @brief Load a method from an already loaded module
-     * @param fileName File name containing the already loaded module.
-     * @param methodName Method to load
-     * @return Pointer to the loaded method.
-     */
-    LOADER_API void const* loadMethod(IModule const* imodule,
-                                      char const* const methodName);
-
-    /**
-     * @overload
-     * @brief Load a method from an already loaded module
-     *
-     * @tparam T Type to load
-     * @param fileName File name containing the already loaded module.
-     * @param methodName Method to load
-     * @return Pointer to the loaded method.
-     */
-    template <typename T>
-    T loadMethod(IModule const* imodule, char const* const methodName)
-    {
-        return reinterpret_cast<T>(loadMethod(imodule, methodName));
-    }
+    LOADER_API bool unloadModule(IModule* mod);
 
 private:
     std::map<std::string, Module> m_loadedInstances;

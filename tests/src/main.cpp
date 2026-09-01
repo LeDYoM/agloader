@@ -9,11 +9,12 @@ void test1()
     auto* loader{agl::createLoader()};
     assert(loader);
 
-    agl::IModule& mod{loader->loadModule("agloader_test_lib")};
+    agl::IModule* mod{loader->loadModule("agloader_test_lib")};
+    assert(mod);
 
     {
         auto result_fun{
-            static_cast<getNumber1_t>(loader->loadMethod(mod, "getNumber1"))};
+            static_cast<getNumber1_t>(mod->loadMethod("getNumber1"))};
         assert(result_fun);
 
         int32_t const result{result_fun(10)};
@@ -21,16 +22,16 @@ void test1()
     }
 
     {
-        auto result_fun{loader->loadMethod<getNumber1_t>(mod, "getNumber1")};
+        auto result_fun{mod->loadMethod<getNumber1_t>("getNumber1")};
         assert(result_fun);
 
         int32_t const result{result_fun(100)};
         assert(result == 101);
     }
 
-        {
+    {
         auto result_fun{
-            static_cast<getNumber1_t>(loader->loadMethod(mod, "getNumber1"))};
+            static_cast<getNumber1_t>(mod->loadMethod("getNumber1"))};
         assert(result_fun);
 
         int32_t const result{result_fun(10)};
@@ -38,7 +39,7 @@ void test1()
     }
 
     {
-        auto result_fun{loader->loadMethod<getNumber1_t>(mod, "getNumber")};
+        auto result_fun{mod->loadMethod<getNumber1_t>("getNumber")};
         assert(!result_fun);
     }
 

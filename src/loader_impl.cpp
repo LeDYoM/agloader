@@ -24,29 +24,35 @@ Loader::~Loader()
     m_loadedInstances.clear();
 }
 
-IModule& Loader::loadModule(char const* const fileName)
+IModule* Loader::loadModule(char const* const fileName)
 {
-    auto const [it, result]{m_loadedInstances.insert({fileName, {}})};
-    if (result)
+    auto it_found{m_loadedInstances.find(fileName)};
+    if (it_found == m_loadedInstances.end())
     {
-        it->second = Module{std::make_shared<LoadedInstance>()};
+        auto instance{std::make_shared<LoadedInstance>()};
+        if (instance->load(fileName))
+        {
+            Module result_module{std::move(instance)};
+            auto [it, result]{m_loadedInstances.insert_or_assign(
+                fileName, std::move(result_module))};
+            (void)(result);
+            return &(it->second);
+        }
+        else
+        {
+            return nullptr;
+        }
     }
-
-    if (!it->second->loaded())
-    {
-        it->second->load(fileName);
-    }
-
-    return it->second;
+    return &(it_found->second);
 }
 
-bool Loader::unloadModule(IModule&& mod)
+bool Loader::unloadModule(IModule* mod)
 {
     std::string const* key_element{nullptr};
 
     for (auto& element : m_loadedInstances)
     {
-        if (&(element.second) == &mod)
+        if (&(element.second) == mod)
         {
             element.second->unload();
             key_element = &element.first;
@@ -59,15 +65,6 @@ bool Loader::unloadModule(IModule&& mod)
         return true;
     }
     return false;
-}
-
-void const* Loader::loadMethod(IModule& mod, char const* const methodName)
-{
-    if (auto& real_module{fromIModule(mod)}; real_module->loaded())
-    {
-        return real_module->loadMethod(methodName);
-    }
-    return nullptr;
 }
 
 }  // namespace agl
