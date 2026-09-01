@@ -9,8 +9,13 @@ void test1()
     auto* loader{agl::createLoader()};
     assert(loader);
 
+    assert(loader->empty());
+    assert(loader->loadedModules() == 0U);
+
     agl::IModule* mod{loader->loadModule("agloader_test_lib")};
     assert(mod);
+    assert(!(loader->empty()));
+    assert(loader->loadedModules() == 1U);
 
     {
         auto result_fun{

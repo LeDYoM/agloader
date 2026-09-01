@@ -44,6 +44,16 @@ public:
      */
     LOADER_API bool unloadModule(IModule* mod);
 
+    LOADER_API uint64_t loadedModules() const noexcept
+    {
+        return static_cast<uint32_t>(m_loadedInstances.size());
+    }
+
+    LOADER_API bool empty() const noexcept
+    {
+        return m_loadedInstances.empty();
+    }
+
 private:
     std::map<std::string, Module> m_loadedInstances;
 };
