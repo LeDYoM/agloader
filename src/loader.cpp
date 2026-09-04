@@ -3,6 +3,7 @@ export module agloader:loader;
 import <map>;
 import <string>;
 import <memory>;
+import <cassert>;
 
 import "loader_export.hpp";
 import :linstance;
@@ -78,12 +79,14 @@ public:
             if (&(element.second) == mod)
             {
                 element.second->unload();
+                assert(key_element == nullptr);
                 key_element = &element.first;
             }
         }
 
         if (key_element != nullptr)
         {
+            assert(!m_loadedInstances.empty());
             m_loadedInstances.erase(*key_element);
             return true;
         }
@@ -92,7 +95,7 @@ public:
 
     LOADER_API uint64_t loadedModules() const noexcept
     {
-        return static_cast<uint32_t>(m_loadedInstances.size());
+        return static_cast<uint64_t>(m_loadedInstances.size());
     }
 
     LOADER_API bool empty() const noexcept { return m_loadedInstances.empty(); }

@@ -20,7 +20,7 @@ public:
      * @param methodName Method to load
      * @return Pointer to the loaded method
      */
-    LOADER_API virtual void const* loadMethod(char const* const methodName) = 0;
+    LOADER_API virtual void const* loadMethod(char const* methodName) = 0;
 
     /**
      * @brief Load a method from an already loaded module

@@ -8,8 +8,8 @@ import "loader_export.hpp";
 
 namespace
 {
-static constinit std::unique_ptr<agl::Loader> loaderInstance;
-static constinit uintmax_t reference_counter{0U};
+constinit std::unique_ptr<agl::Loader> loaderInstance;
+constinit uintmax_t reference_counter{0U};
 }  // namespace
 
 namespace agl
@@ -31,8 +31,10 @@ export LOADER_API Loader* createLoader()
 
 /**
  * @brief Destroy the loader
+ * Decrements the reference counter for the Loader class. Deletes the loader if the reference counter reaches 0
+ * @return The counter value after decrementing it. If it is 0, the Loader class will be destroyed
  */
-export LOADER_API void destroyLoader() noexcept
+export LOADER_API uintmax_t destroyLoader() noexcept
 {
     if (reference_counter > 0U)
     {
@@ -43,13 +45,20 @@ export LOADER_API void destroyLoader() noexcept
     {
         loaderInstance.reset(nullptr);
     }
+    return reference_counter;
 }
 
+/**
+ * @return bool Is the loader active and ready?
+ */
 export LOADER_API bool isActive() noexcept
 {
-    return reference_counter == 0;
+    return reference_counter != 0U;
 }
 
+/**
+ * @return Number of instanciations of the class. Aka the number of reference counted objects created
+ */
 export LOADER_API uintmax_t instantiations() noexcept
 {
     return reference_counter;
