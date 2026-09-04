@@ -6,8 +6,18 @@ using getNumber1_t = int32_t (*)(int16_t const);
 
 void test1()
 {
+    assert(agl::instantiations() == 0U);
+    assert(!agl::isActive());
+
+    auto* loader_tmp{agl::createLoader()};
+    assert(loader_tmp);
+    assert(agl::instantiations() == 1U);
+    assert(agl::isActive());
+
     auto* loader{agl::createLoader()};
     assert(loader);
+    assert(agl::instantiations() == 2U);
+    assert(agl::isActive());
 
     assert(loader->empty());
     assert(loader->loadedModules() == 0U);
@@ -48,16 +58,34 @@ void test1()
         assert(!result_fun);
     }
 
-    agl::IModule* mod2{loader->loadModule("./agloader_test_lib")};
-    assert(mod2);
-    assert(!(loader->empty()));
-    assert(loader->loadedModules() == 2U);
+    {
+        agl::IModule* mod2{loader->loadModule("./agloader_test_lib")};
+        assert(mod2);
+        assert(!(loader->empty()));
+        assert(loader->loadedModules() == 2U);
 
-    loader->unloadModule(mod2);
-    assert(!(loader->empty()));
-    assert(loader->loadedModules() == 1U);
+        assert(loader->unloadModule(mod2));
+        assert(!loader->unloadModule(mod2));
+        assert(!(loader->empty()));
+        assert(loader->loadedModules() == 1U);
+    }
 
-    agl::destroyLoader();
+    {
+        agl::IModule* mod2{loader->loadModule("agloader_test_lib.dll")};
+        assert(!mod2);
+        assert(!(loader->empty()));
+        assert(loader->loadedModules() == 1U);
+    }
+
+    assert(agl::destroyLoader() == 1U);
+
+    assert(agl::instantiations() == 1U);
+    assert(agl::isActive());
+
+    assert(agl::destroyLoader() == 0U);
+
+    assert(agl::instantiations() == 0U);
+    assert(!agl::isActive());
 }
 
 int main(int, char*[])
