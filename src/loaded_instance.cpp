@@ -5,7 +5,6 @@ import <string>;
 import <cstring>;
 
 import :os_specific_functions;
-import :utils;
 
 namespace agl
 {
@@ -22,37 +21,10 @@ public:
         static constexpr auto kBufferSize{1024};
         static char strBuffer[kBufferSize];
         strBuffer[0] = 0;
-/*
-        errno_t safe_concat(char* dest, size_t destSize,
-                    const char* prefix,
-                    const char* fileName,
-                    const char* extension)
-{
-    errno_t err = 0;
 
-    // Start with an empty string
-    dest[0] = '\0';
-
-    // Append prefix
-    err = strcat_s(dest, destSize, prefix);
-    if (err != 0) return err;
-
-    // Append fileName
-    err = strcat_s(dest, destSize, fileName);
-    if (err != 0) return err;
-
-    // Append extension
-    err = strcat_s(dest, destSize, extension);
-    return err;
-}
-*/
-        auto fileNameSize{std::strlen(fileName)};
-        if (fileNameSize < kBufferSize)
-        {
-            strcpy_s(strBuffer, kBufferSize, prefix);
-            strcat_s(strBuffer, kBufferSize, fileName);
-            strcat_s(strBuffer, kBufferSize, extension);
-        }
+        strcpy_s(strBuffer, kBufferSize, prefix);
+        strcat_s(strBuffer, kBufferSize, fileName);
+        strcat_s(strBuffer, kBufferSize, extension);
 
         m_shared_file_handle = loadSharedObject(strBuffer);
         return loaded();
