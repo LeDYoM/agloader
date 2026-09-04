@@ -48,6 +48,15 @@ void test1()
         assert(!result_fun);
     }
 
+    agl::IModule* mod2{loader->loadModule("./agloader_test_lib")};
+    assert(mod2);
+    assert(!(loader->empty()));
+    assert(loader->loadedModules() == 2U);
+
+    loader->unloadModule(mod2);
+    assert(!(loader->empty()));
+    assert(loader->loadedModules() == 1U);
+
     agl::destroyLoader();
 }
 

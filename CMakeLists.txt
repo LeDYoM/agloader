@@ -63,11 +63,8 @@ PUBLIC
   FILES
     src/agloader.ixx
     src/imodule.cpp
-    src/loaded_instance_impl.cpp
     src/loaded_instance_utils.cpp
     src/loaded_instance.cpp
-    src/loader_impl.cpp
-    src/loader_management_impl.cpp
     src/loader_management.cpp
     src/loader.cpp
     src/module.cpp
