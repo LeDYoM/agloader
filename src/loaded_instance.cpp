@@ -53,7 +53,7 @@ public:
         return nullptr;
     }
 
-    bool loaded() const { return m_shared_file_handle != nullptr; }
+    [[nodiscard]] bool loaded() const { return m_shared_file_handle != nullptr; }
 
     bool unload()
     {
@@ -68,10 +68,10 @@ public:
         return result;
     }
 
-    void const* loadedData() const { return m_shared_file_handle; }
+    [[nodiscard]] void const* loadedData() const { return m_shared_file_handle; }
 
 private:
     void* m_shared_file_handle{nullptr};
-    std::map<std::string, void*> m_methods;
+    std::map<std::string, void*> m_methods{};
 };
 }  // namespace agl

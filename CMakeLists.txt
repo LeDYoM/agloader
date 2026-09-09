@@ -7,6 +7,8 @@ project(
   LANGUAGES CXX)
 
 #set(AGLOADER_BUILD_STATIC TRUE)
+set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake_ledyom_utils" ${CMAKE_MODULE_PATH})
+include(documenting)
 
 if (DEFINED AGLOADER_BUILD_STATIC)
   message("Building agloader static")
@@ -72,3 +74,4 @@ PUBLIC
 
 target_link_libraries(agloader PRIVATE ${CMAKE_DL_LIBS})
 message(STATUS "agloader ver.  ${PROJECT_VERSION}")
+build_docs(agloader)
