@@ -1,0 +1,3 @@
+[submodule "cmake_ledyom_utils"]
+	path = cmake_ledyom_utils
+	url = https://github.com/LeDYoM/cmake_ledyom_utils.git
