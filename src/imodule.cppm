@@ -5,7 +5,7 @@ import "loader_export.hpp";
 namespace agl
 {
 /**
- * @brief Main class to load a module
+ * @brief Class representing a loaded module to public interface
  * This class provides the basic API to load a module and its methods
  */
 export class IModule
