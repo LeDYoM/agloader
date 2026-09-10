@@ -13,7 +13,7 @@ import :module;
 namespace agl
 {
 /**
- * @brief Main class to load a module
+ * @brief Main class of the library to load module files
  * This class provides the basic API to load a module and its methods
  */
 export class Loader
@@ -29,14 +29,7 @@ public:
      * @brief Destroy the Loader object.
      * Destructor. Do not use it directly.
      */
-    LOADER_PRIVATE ~Loader()
-    {
-        for (auto& element : m_loadedInstances)
-        {
-            element.second->unload();
-        }
-        m_loadedInstances.clear();
-    }
+    LOADER_PRIVATE ~Loader() = default;
 
     /**
      * @brief Load a shared library module from a file
@@ -67,41 +60,52 @@ public:
 
     /**
      * @brief Unload a module from a shared library.
-     * @param fileName File containing the already loaded module
+     * @param mod Pointer to IModule object.
      * @return If the unloading was successful or not
      */
     LOADER_API bool unloadModule(IModule* mod)
     {
-        std::string const* key_element{nullptr};
-
-        for (auto& element : m_loadedInstances)
+        if (mod == nullptr)
         {
-            if (&(element.second) == mod)
+            std::string const* key_element{nullptr};
+
+            for (auto& element : m_loadedInstances)
             {
-                element.second->unload();
-                assert(key_element == nullptr);
-                key_element = &element.first;
+                if (&(element.second) == mod)
+                {
+                    element.second->unload();
+                    assert(key_element == nullptr);
+                    key_element = &element.first;
+                }
             }
-        }
 
-        if (key_element != nullptr)
-        {
-            assert(!m_loadedInstances.empty());
-            m_loadedInstances.erase(*key_element);
-            return true;
+            if (key_element != nullptr)
+            {
+                assert(!m_loadedInstances.empty());
+                m_loadedInstances.erase(*key_element);
+                return true;
+            }
         }
         return false;
     }
 
+    /**
+     * @brief Get the number of loaded modules
+     * @return uint64_t The number of loaded modules
+     */
     LOADER_API uint64_t loadedModules() const noexcept
     {
         return static_cast<uint64_t>(m_loadedInstances.size());
     }
 
+    /**
+     * @brief Ask the library if there is currently any loaded module
+     * @return Is the list of loaded modules empty?
+     */
     LOADER_API bool empty() const noexcept { return m_loadedInstances.empty(); }
 
 private:
-    std::map<std::string, Module> m_loadedInstances;
+    LOADER_PRIVATE std::map<std::string, Module> m_loadedInstances;
 };
 
 }  // namespace agl

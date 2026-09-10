@@ -64,12 +64,12 @@ PUBLIC
   FILE_SET CXX_MODULES
   FILES
     src/agloader.ixx
-    src/imodule.cpp
-    src/loaded_instance.cpp
-    src/loader_management.cpp
-    src/loader.cpp
-    src/module.cpp
-    src/os_specific_${driver_file}.cpp
+    src/imodule.cppm
+    src/loaded_instance.cppm
+    src/loader_management.cppm
+    src/loader.cppm
+    src/module.cppm
+    src/os_specific_${driver_file}.cppm
 )
 
 target_link_libraries(agloader PRIVATE ${CMAKE_DL_LIBS})
