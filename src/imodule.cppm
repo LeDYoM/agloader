@@ -11,24 +11,22 @@ namespace agl
 export class IModule
 {
 public:
-    IModule() = default;
+    LOADER_PRIVATE IModule() noexcept = default;
 
     /**
      * @brief Load a method from an already loaded module
-     * @param mod Reference to a @b IModule object that is a result from a call
-     * to @b loadModule
-     * @param methodName Method to load
-     * @return Pointer to the loaded method
+     * @param methodName Method name to load. Name mangling applies
+     * @return Pointer to the loaded method or nullptr if error
      */
     LOADER_API virtual void const* loadMethod(char const* methodName) = 0;
 
     /**
      * @brief Load a method from an already loaded module
      * @tparam T Type to load
-     * @param mod Reference to a @b IModule object that is a result from a call
-     * to @b loadModule
-     * @param methodName Method to load
-     * @return Pointer to the loaded method.
+     * @param methodName Method name to load. Name mangling applies
+     * @return Pointer to the loaded method or nullptr if error
+     * @note If the method signature pass as parameter does not correspond to
+     * the real method signature, there is UB.
      */
     template <typename T>
     T loadMethod(char const* const methodName)
@@ -39,6 +37,8 @@ public:
 protected:
     IModule(IModule const&)            = default;
     IModule& operator=(IModule const&) = default;
+    IModule(IModule&&)                 = default;
+    IModule& operator=(IModule&&)      = default;
 
     virtual ~IModule() = default;
 };
