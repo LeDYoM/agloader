@@ -35,11 +35,24 @@ public:
     }
 
 protected:
-    IModule(IModule const&)            = default;
-    IModule& operator=(IModule const&) = default;
-    IModule(IModule&&)                 = default;
-    IModule& operator=(IModule&&)      = default;
+    /**
+     * @brief Construct a new IModule object
+     * This copy constructor is here because if we have an user defined
+     * destructor, we should have a copy constructor.
+     */
+    IModule(IModule const&) = default;
 
+    /**
+     * @brief Construct a new IModule object
+     * This copy constructor is here because if we have an user defined
+     * destructor, we should have a copy assignment.
+     */
+    IModule& operator=(IModule const&) = default;
+
+    /**
+     * @brief Destroy the IModule object
+     * This is virtual because this is a base class.
+     */
     virtual ~IModule() = default;
 };
 

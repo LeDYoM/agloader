@@ -64,8 +64,20 @@ void test1()
         assert(!(loader->empty()));
         assert(loader->loadedModules() == 2U);
 
+        {
+            auto result_fun{
+                static_cast<getNumber1_t>(mod->loadMethod("getNumber1"))};
+            assert(!result_fun);
+        }
+
+        {
+            auto result_fun{mod->loadMethod("getNumber1")};
+            assert(!result_fun);
+        }
+
         assert(loader->unloadModule(mod2));
         assert(!loader->unloadModule(mod2));
+        assert(!loader->unloadModule(nullptr));
         assert(!(loader->empty()));
         assert(loader->loadedModules() == 1U);
     }

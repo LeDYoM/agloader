@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 4.0)
 project(
   "AGLoader"
-  VERSION 0.3.1.7
+  VERSION 0.4.0.0
   DESCRIPTION "Multiplatform library to load shared libraries system agnostic"
   HOMEPAGE_URL https://github.com/LeDYoM/agloader
   LANGUAGES CXX)
@@ -63,15 +63,16 @@ target_sources(agloader
 PUBLIC
   FILE_SET CXX_MODULES
   FILES
-    src/agloader.ixx
-    src/imodule.cppm
+    src/public/agloader.ixx
+    src/public/imodule.cppm
+    src/public/loader_management.cppm
     src/loaded_instance.cppm
-    src/loader_management.cppm
     src/loader.cppm
     src/module.cppm
     src/os_specific_${driver_file}.cppm
 )
 
+target_include_directories(agloader PUBLIC src)
 target_link_libraries(agloader PRIVATE ${CMAKE_DL_LIBS})
 message(STATUS "agloader ver.  ${PROJECT_VERSION}")
 build_docs(agloader)

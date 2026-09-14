@@ -65,7 +65,7 @@ public:
      */
     LOADER_API bool unloadModule(IModule* mod)
     {
-        if (mod == nullptr)
+        if (mod != nullptr)
         {
             std::string const* key_element{nullptr};
 
