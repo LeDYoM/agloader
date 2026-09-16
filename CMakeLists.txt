@@ -28,20 +28,7 @@ if (NOT IS_IMPORTED)
   add_subdirectory(tests)
 endif()
 
-set_cxx_standard(agloader 23)
-add_pie_if_available(agloader)
-target_compile_options(agloader PRIVATE
-  $<$<AND:$<CXX_COMPILER_ID:MSVC>,$<NOT:$<CONFIG:Release>>>:/Wall>
-  $<$<AND:$<CXX_COMPILER_ID:MSVC>,$<CONFIG:Release>>:/W4>
-  $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:-Wall -Wextra -pedantic -Wno-unknown-pragmas>
-)
-
-# Avoid warnings from external includes (like STL, for example)
-target_compile_options(agloader PRIVATE
-  $<$<CXX_COMPILER_ID:MSVC>:/external:anglebrackets /external:W0>
-)
-
-set_property(TARGET agloader PROPERTY COMPILE_WARNING_AS_ERROR ON)
+set_cxx_standard_options(agloader 23)
 
 if(MSVC)
   set(driver_file msvc)
