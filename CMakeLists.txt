@@ -28,12 +28,8 @@ if (NOT IS_IMPORTED)
   add_subdirectory(tests)
 endif()
 
-set_target_properties(agloader PROPERTIES
-    CXX_STANDARD 23
-    CXX_STANDARD_REQUIRED ON
-    CXX_EXTENSIONS OFF
-    POSITION_INDEPENDENT_CODE ON)
-
+set_cxx_standard(agloader 23)
+add_pie_if_available(agloader)
 target_compile_options(agloader PRIVATE
   $<$<AND:$<CXX_COMPILER_ID:MSVC>,$<NOT:$<CONFIG:Release>>>:/Wall>
   $<$<AND:$<CXX_COMPILER_ID:MSVC>,$<CONFIG:Release>>:/W4>
