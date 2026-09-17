@@ -28,7 +28,7 @@ if (NOT IS_IMPORTED)
   add_subdirectory(tests)
 endif()
 
-set_cxx_standard_options(agloader 23)
+set_my_standards_cxx_options(agloader 23)
 
 if(MSVC)
   set(driver_file msvc)
