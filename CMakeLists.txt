@@ -11,20 +11,21 @@ set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake_ledyom_utils" ${CMAKE_MODULE_PA
 include(documenting)
 include(compiling)
 
+set(target agloader)
 if (DEFINED AGLOADER_BUILD_STATIC)
   message("Building agloader static")
-  add_library(agloader STATIC)
+  add_library(${target} STATIC)
 else()
   message("Building agloader dynamic")
-  add_library(agloader SHARED)
+  add_library(${target} SHARED)
   target_compile_definitions(agloader PUBLIC COMPILE_DYNAMIC)
 endif()
 
-get_target_property(IS_IMPORTED agloader IMPORTED)
-message("Is agloader imported: ${IS_IMPORTED}")
+get_target_property(IS_IMPORTED ${target} IMPORTED)
+message("Is ${target} imported: ${IS_IMPORTED}")
 
 if (NOT IS_IMPORTED)
-  message("Adding tests for agloader")
+  message("Adding tests for ${target}")
   add_subdirectory(tests)
 endif()
 
@@ -36,14 +37,14 @@ else()
   set(driver_file linux)
 endif()
 
-target_sources(agloader
+target_sources(${target}
 PUBLIC
   FILE_SET HEADERS
   FILES
     src/loader_export.hpp
 )
 
-target_sources(agloader
+target_sources(${target}
 PUBLIC
   FILE_SET CXX_MODULES
   FILES
@@ -56,7 +57,8 @@ PUBLIC
     src/os_specific_${driver_file}.cppm
 )
 
-target_include_directories(agloader PUBLIC src)
-target_link_libraries(agloader PRIVATE ${CMAKE_DL_LIBS})
+target_include_directories(${target} PUBLIC src)
+target_link_libraries(${target} PRIVATE ${CMAKE_DL_LIBS})
+build_docs_standard(${target}_docs)
+
 message(STATUS "agloader ver.  ${PROJECT_VERSION}")
-build_docs(agloader)
