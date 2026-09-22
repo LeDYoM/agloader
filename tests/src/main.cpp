@@ -1,6 +1,7 @@
 import agloader;
 import <cassert>;
 import <cstdint>;
+import <utility>;
 
 using getNumber1_t = int32_t (*)(int16_t const);
 
@@ -13,6 +14,7 @@ void test1()
     assert(loader_tmp);
     assert(agl::instantiations() == 1U);
     assert(agl::isActive());
+    std::ignore = loader_tmp;
 
     auto* loader{agl::createLoader()};
     assert(loader);
@@ -34,6 +36,7 @@ void test1()
 
         int32_t const result{result_fun(10)};
         assert(result == 11);
+        std::ignore = result;
     }
 
     {
@@ -42,6 +45,7 @@ void test1()
 
         int32_t const result{result_fun(100)};
         assert(result == 101);
+        std::ignore = result;
     }
 
     {
@@ -51,11 +55,13 @@ void test1()
 
         int32_t const result{result_fun(10)};
         assert(result == 11);
+        std::ignore = result;
     }
 
     {
         auto result_fun{mod->loadMethod<getNumber1_t>("getNumber")};
         assert(!result_fun);
+        std::ignore = result_fun;
     }
 
     {
@@ -63,16 +69,19 @@ void test1()
         assert(mod2);
         assert(!(loader->empty()));
         assert(loader->loadedModules() == 2U);
+        std::ignore = mod2;
 
         {
             auto result_fun{
                 static_cast<getNumber1_t>(mod->loadMethod("getNumber1"))};
             assert(!result_fun);
+            std::ignore = result_fun;
         }
 
         {
             auto result_fun{mod->loadMethod("getNumber1")};
             assert(!result_fun);
+            std::ignore = result_fun;
         }
 
         assert(loader->unloadModule(mod2));
@@ -87,6 +96,7 @@ void test1()
         assert(!mod2);
         assert(!(loader->empty()));
         assert(loader->loadedModules() == 1U);
+        std::ignore = mod2;
     }
 
     assert(agl::destroyLoader() == 1U);
@@ -100,8 +110,12 @@ void test1()
     assert(!agl::isActive());
 }
 
+#pragma warning(push)
+#pragma warning(disable : 4711)
+
 int main(int, char*[])
 {
     test1();
     return 0;
 }
+#pragma warning(pop)
