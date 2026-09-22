@@ -6,11 +6,24 @@ project(
   HOMEPAGE_URL https://github.com/LeDYoM/agloader
   LANGUAGES CXX)
 
-#set(AGLOADER_BUILD_STATIC TRUE)
-set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake_ledyom_utils" ${CMAKE_MODULE_PATH})
+# Start common part to get CMake common scripts
+include(FetchContent)
+
+# Fetch my cmake utils package
+FetchContent_Declare(
+  cmake_ledyom_utils
+  GIT_REPOSITORY https://github.com/LeDYoM/cmake_ledyom_utils.git
+  GIT_TAG agloader_code
+)
+
+FetchContent_MakeAvailable(cmake_ledyom_utils)
+set(CMAKE_MODULE_PATH "${cmake_ledyom_utils_SOURCE_DIR}" ${CMAKE_MODULE_PATH})
+
 include(documenting)
 include(compiling)
+# Finish common part
 
+#set(AGLOADER_BUILD_STATIC TRUE)
 set(target agloader)
 if (DEFINED AGLOADER_BUILD_STATIC)
   message("Building agloader static")
