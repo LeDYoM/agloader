@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 4.0)
 project(
   "AGLoader"
-  VERSION 0.4.1.1
+  VERSION 0.4.1.2
   DESCRIPTION "Multiplatform library to load shared libraries system agnostic"
   HOMEPAGE_URL https://github.com/LeDYoM/agloader
   LANGUAGES CXX)
@@ -13,14 +13,12 @@ include(FetchContent)
 FetchContent_Declare(
   cmake_ledyom_utils
   GIT_REPOSITORY https://github.com/LeDYoM/cmake_ledyom_utils.git
-  GIT_TAG agloader_code
 )
 
 FetchContent_MakeAvailable(cmake_ledyom_utils)
-set(CMAKE_MODULE_PATH "${cmake_ledyom_utils_SOURCE_DIR}" ${CMAKE_MODULE_PATH})
+list(APPEND CMAKE_MODULE_PATH ${cmake_ledyom_utils_SOURCE_DIR})
 
-include(documenting)
-include(compiling)
+include(c_l_u_a)
 # Finish common part
 
 #set(AGLOADER_BUILD_STATIC TRUE)
@@ -72,6 +70,6 @@ PUBLIC
 
 target_include_directories(${target} PUBLIC src)
 target_link_libraries(${target} PRIVATE ${CMAKE_DL_LIBS})
-build_docs_standard(${target}_docs)
+build_docs_standard(${target})
 
 message(STATUS "agloader ver.  ${PROJECT_VERSION}")
