@@ -23,6 +23,7 @@ include(c_l_u_a)
 
 #set(AGLOADER_BUILD_STATIC TRUE)
 set(target agloader)
+
 if (DEFINED AGLOADER_BUILD_STATIC)
   message("Building agloader static")
   add_library(${target} STATIC)
@@ -32,12 +33,16 @@ else()
   target_compile_definitions(agloader PUBLIC COMPILE_DYNAMIC)
 endif()
 
-get_target_property(IS_IMPORTED ${target} IMPORTED)
-message("Is ${target} imported: ${IS_IMPORTED}")
+set (AGLOADER_BUILD_TESTS ${PROJECT_IS_TOP_LEVEL})
 
-if (NOT IS_IMPORTED)
+message("Is ${target} imported: ${PROJECT_IS_TOP_LEVEL}")
+message("Building tests: ${AGLOADER_BUILD_TESTS}")
+
+if (${AGLOADER_BUILD_TESTS})
   message("Adding tests for ${target}")
   add_subdirectory(tests)
+else()
+  message("Not building tests for ${target}")
 endif()
 
 set_my_standards_cxx_options(agloader 23)
