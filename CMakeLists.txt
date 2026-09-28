@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 4.0)
 project(
   "AGLoader"
-  VERSION 0.4.1.2
+  VERSION 0.4.1.4
   DESCRIPTION "Multiplatform library to load shared libraries system agnostic"
   HOMEPAGE_URL https://github.com/LeDYoM/agloader
   LANGUAGES CXX)
@@ -58,10 +58,6 @@ PUBLIC
   FILE_SET HEADERS
   FILES
     src/loader_export.hpp
-)
-
-target_sources(${target}
-PUBLIC
   FILE_SET CXX_MODULES
   FILES
     src/public/agloader.ixx
