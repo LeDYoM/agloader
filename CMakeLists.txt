@@ -21,6 +21,8 @@ list(APPEND CMAKE_MODULE_PATH ${cmake_ledyom_utils_SOURCE_DIR})
 include(c_l_u_a)
 # Finish common part
 
+prepare_cmake_presets()
+
 #set(AGLOADER_BUILD_STATIC TRUE)
 set(target agloader)
 
