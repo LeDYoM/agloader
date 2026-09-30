@@ -8,8 +8,10 @@ import "loader_export.hpp";
 
 namespace
 {
-constinit std::unique_ptr<agl::Loader> loaderInstance;
-constinit uintmax_t reference_counter{0U};
+/** Global hidden agl::Loader instance */
+LOADER_PRIVATE constinit std::unique_ptr<agl::Loader> loaderInstance;
+/** Global hidden reference counter of loaded instances */
+LOADER_PRIVATE constinit uintmax_t reference_counter{0U};
 }  // namespace
 
 namespace agl
