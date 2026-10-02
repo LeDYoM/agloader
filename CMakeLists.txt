@@ -23,19 +23,12 @@ include(c_l_u_a)
 
 prepare_cmake_presets()
 
-#set(AGLOADER_BUILD_STATIC TRUE)
 set(target agloader)
 
-if (DEFINED AGLOADER_BUILD_STATIC)
-  message("Building agloader static")
-  add_library(${target} STATIC)
-else()
-  message("Building agloader dynamic")
-  add_library(${target} SHARED)
-  target_compile_definitions(agloader PUBLIC COMPILE_DYNAMIC)
-endif()
+add_library(${target} SHARED)
+target_compile_definitions(agloader PUBLIC COMPILE_DYNAMIC)
 
-set (AGLOADER_BUILD_TESTS ${PROJECT_IS_TOP_LEVEL})
+option(AGLOADER_BUILD_TESTS "Build test programs" ON)
 
 message("Is ${target} imported: ${PROJECT_IS_TOP_LEVEL}")
 message("Building tests: ${AGLOADER_BUILD_TESTS}")
@@ -47,7 +40,7 @@ else()
   message("Not building tests for ${target}")
 endif()
 
-set_my_standards_cxx_options(agloader 23)
+set_my_standards_cxx_options(${target} 23)
 
 if(MSVC)
   set(driver_file msvc)
