@@ -32,7 +32,7 @@ public:
      * @param fileName string containing the file name to load
      * @return if the file has been loaded successfully
      */
-    bool load(char const* const fileName)
+    [[nodiscard]] bool load(char const* const fileName) noexcept
     {
         // A bit of old C code.
         static constexpr auto kBufferSize{1024};
@@ -44,7 +44,7 @@ public:
         strcat_s(strBuffer, kBufferSize, extension);
 
         m_shared_file_handle = loadSharedObject(strBuffer);
-        return loaded();
+        return m_shared_file_handle != nullptr;
     }
 
     /**

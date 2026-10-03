@@ -6,17 +6,18 @@ module;
 
 export module agloader:os_specific_functions;
 
-void* getMethod(void* handle, char const* const methodName)
+[[nodiscard]] void* getMethod(void* handle,
+                              char const* const methodName) noexcept
 {
     return static_cast<void*>(dlsym(handle, methodName));
 }
 
-void* loadSharedObject(char const* const fileName)
+[[nodiscard]] void* loadSharedObject(char const* const fileName) noexcept
 {
     return static_cast<void*>(dlopen(fileName, RTLD_LAZY));
 }
 
-bool freeSharedObject(void* handle)
+bool freeSharedObject(void* handle) noexcept
 {
     return (dlclose(handle) == 0);
 }
