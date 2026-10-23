@@ -36,7 +36,7 @@ public:
      * @param fileName File to load WITHOUT extension
      * @return Reference to a reference to an opaque @b IModule object
      */
-    LOADER_API IModule* loadModule(char const* const fileName)
+    [[nodiscard]] LOADER_API IModule* loadModule(char const* const fileName)
     {
         auto it_found{m_loadedInstances.find(fileName)};
         if (it_found == m_loadedInstances.end())
@@ -93,7 +93,7 @@ public:
      * @brief Get the number of loaded modules
      * @return uint64_t The number of loaded modules
      */
-    LOADER_API uint64_t loadedModules() const noexcept
+    [[nodiscard]] LOADER_API uint64_t loadedModules() const noexcept
     {
         return static_cast<uint64_t>(m_loadedInstances.size());
     }
@@ -102,7 +102,7 @@ public:
      * @brief Ask the library if there is currently any loaded module
      * @return Is the list of loaded modules empty?
      */
-    LOADER_API bool empty() const noexcept { return m_loadedInstances.empty(); }
+    [[nodiscard]] LOADER_API bool empty() const noexcept { return m_loadedInstances.empty(); }
 
 private:
     LOADER_PRIVATE std::map<std::string, Module> m_loadedInstances;
